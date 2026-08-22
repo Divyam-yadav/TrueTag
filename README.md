@@ -73,7 +73,7 @@ Ensure local MongoDB is running on port `27017` (`mongodb://localhost:27017`).
 
 ---
 
-###🦉 Team: Coding W/ Night Owls
+### 🦉 Team: Coding W/ Night Owls
 * Gulshan Matre (Team Leader)
 
 * John Mathew
