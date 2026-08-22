@@ -31,7 +31,6 @@ def extract_price_value(text: str) -> tuple:
                     except ValueError:
                         pass
 
-    # Fallback: Check if MRP statutory text is present even if digits were unclear
     keywords = ["mrp", "m.r.p", "maximum retail price", "max retail price", "incl of all taxes", "incl. of all taxes", "inclusive of all taxes"]
     found = any(k in text.lower() for k in keywords)
     return found, None, "MRP declaration detected" if found else None
