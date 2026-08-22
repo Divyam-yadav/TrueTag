@@ -16,13 +16,13 @@ export default function Sidebar({ activeTab, onTabChange, onGoToLanding }) {
         >
           <img
             src="/truetag-logo.png"
-            alt="TrueTag Official Brand Logo"
+            alt="True Tag Official Brand Logo"
             className="sidebar-logo-img"
             onError={(e) => {
               e.target.style.display = "none";
             }}
           />
-          <h2 className="sidebar-brand-title">TrueTag</h2>
+          <h2 className="sidebar-brand-title">True Tag</h2>
           <span className="sidebar-brand-subtitle">Since 2026</span>
         </div>
 

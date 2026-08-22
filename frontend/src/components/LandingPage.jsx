@@ -38,13 +38,13 @@ export default function LandingPage({ onLaunchWorkspace, onOpenDocs }) {
         <div className="landing-brand-wrap" onClick={onLaunchWorkspace}>
           <img
             src="/truetag-logo.png"
-            alt="TrueTag Logo"
+            alt="True Tag Logo"
             className="landing-logo-img"
             onError={(e) => {
               e.target.style.display = "none";
             }}
           />
-          <span className="landing-brand-text">TrueTag</span>
+          <span className="landing-brand-text">True Tag</span>
         </div>
 
         <div>
@@ -69,7 +69,7 @@ export default function LandingPage({ onLaunchWorkspace, onOpenDocs }) {
         </h1>
 
         <p className="landing-hero-subtitle">
-          Protect your marketplace from regulatory penalties. TrueTag’s AI
+          Protect your marketplace from regulatory penalties. True Tag’s AI
           vision engine automatically validates MRP, Net Quantity, and
           Manufacturer declarations across your entire catalog in seconds.
         </p>
