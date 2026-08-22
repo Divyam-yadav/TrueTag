@@ -2,36 +2,36 @@ import re
 
 
 def extract_price_value(text: str) -> tuple:
-    mrp_regex_1 = r'(?:mrp|m\.r\.p|max(?:imum)?\s+retail\s+price)[^0-9\n\r]{0,20}(?:rs\.?|ps\.?|inr|₹)?\s*([0-9]+(?:[,\.][0-9]{1,2})?)\s*(?:\/[-=]|per|\n|\r|$)'
-    match = re.search(mrp_regex_1, text, re.IGNORECASE)
-    if match:
-        raw_val = match.group(1).replace(',', '.')
-        try:
-            val = float(raw_val)
-            return True, val, f"₹{val:.2f}"
-        except ValueError:
-            pass
+    """
+    Search extracted text for Maximum Retail Price (MRP) and parse numeric value.
+    Tolerant to multiline layouts and OCR noise (e.g. 'MRP\nRs. 499.00', 'MRP: 9.99', 'MRP Rs. 250/-').
+    """
+    patterns = [
+        # Pattern 1: MRP keyword followed by optional symbols/words and a number
+        r'(?:mrp|m\.r\.p|max(?:imum)?\s+retail\s+price)[\s\S]{0,35}?(?:rs\.?|ps\.?|inr|₹)?\s*([0-9]+(?:[,\.][0-9]{1,2})?)\s*(?:\/[-=]|per|\n|\r|\s|\)|$)',
+        # Pattern 2: Currency symbol followed by number
+        r'(?:rs\.?|inr|₹)\s*([0-9]+(?:[,\.][0-9]{1,2})?)',
+        # Pattern 3: Price with /- or /= suffix
+        r'([0-9]+(?:[,\.][0-9]{1,2})?)\s*\/[-=]',
+        # Pattern 4: Numbers near 'incl of all taxes' or 'inclusive'
+        r'([0-9]+(?:[,\.][0-9]{1,2})?)[\s\S]{0,25}?(?:incl|taxes|all\s+taxes)',
+        r'(?:incl|taxes|all\s+taxes)[\s\S]{0,25}?([0-9]+(?:[,\.][0-9]{1,2})?)'
+    ]
 
-    mrp_regex_multiline = r'(?:mrp|m\.r\.p|maximum\s+retail\s+price)[\s\S]{0,30}?(?:rs\.?|inr|₹)\s*([0-9]+(?:[,\.][0-9]{1,2})?)'
-    match = re.search(mrp_regex_multiline, text, re.IGNORECASE)
-    if match:
-        raw_val = match.group(1).replace(',', '.')
-        try:
-            val = float(raw_val)
-            return True, val, f"₹{val:.2f}"
-        except ValueError:
-            pass
+    for pat in patterns:
+        matches = list(re.finditer(pat, text, re.IGNORECASE))
+        for match in matches:
+            for g in match.groups():
+                if g:
+                    clean_str = g.replace(',', '.')
+                    try:
+                        val = float(clean_str)
+                        if 0.5 <= val <= 500000:
+                            return True, val, f"₹{val:.2f}"
+                    except ValueError:
+                        pass
 
-    mrp_regex_tax = r'(?:rs\.?|inr|₹)\s*([0-9]+(?:[,\.][0-9]{1,2})?)[\s\S]{0,30}?(?:incl|taxes|all\s+taxes)'
-    match = re.search(mrp_regex_tax, text, re.IGNORECASE)
-    if match:
-        raw_val = match.group(1).replace(',', '.')
-        try:
-            val = float(raw_val)
-            return True, val, f"₹{val:.2f}"
-        except ValueError:
-            pass
-
+    # Fallback: Check if MRP statutory text is present even if digits were unclear
     keywords = ["mrp", "m.r.p", "maximum retail price", "max retail price", "incl of all taxes", "incl. of all taxes", "inclusive of all taxes"]
     found = any(k in text.lower() for k in keywords)
     return found, None, "MRP declaration detected" if found else None
