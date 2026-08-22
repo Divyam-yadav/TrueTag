@@ -1,0 +1,39 @@
+/* True Tag - Created by Coding W/ night owls */
+
+.rules-grid-dark {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin-top: 1.25rem;
+}
+.rule-box-card {
+  background-color: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-card);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-card);
+}
+.rule-header-badge {
+  margin-bottom: 0.75rem;
+}
+.rule-clause-chip {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.725rem;
+  font-weight: 700;
+  background: var(--brand-cyan-light);
+  color: var(--brand-navy);
+  padding: 0.25rem 0.55rem;
+  border-radius: 4px;
+  border: 1px solid #bae6fd;
+}
+.rule-title-h3 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--brand-navy);
+  margin-bottom: 0.4rem;
+}
+.rule-body-desc {
+  font-size: 0.825rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}

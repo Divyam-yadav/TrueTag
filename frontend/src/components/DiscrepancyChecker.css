@@ -1,0 +1,79 @@
+/* True Tag - Created by Coding W/ night owls */
+
+.discrepancy-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-card);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-card);
+  margin-bottom: 1.5rem;
+}
+.disc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1rem;
+}
+.disc-item {
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  padding: 1.15rem;
+  background-color: #ffffff;
+}
+.disc-match {
+  border-left: 4px solid var(--status-pass-text);
+}
+.disc-critical {
+  border-left: 4px solid var(--status-fail-text);
+  background-color: #fffdfd;
+}
+.disc-warning {
+  border-left: 4px solid var(--status-warn-text);
+}
+.disc-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+.disc-field-title {
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--brand-navy);
+}
+.disc-sev-tag {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.15rem 0.5rem;
+  border-radius: 4px;
+}
+.disc-comparison {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f8fafc;
+  padding: 0.65rem 0.85rem;
+  border-radius: var(--radius-sm);
+  margin-bottom: 0.5rem;
+  font-size: 0.825rem;
+  border: 1px solid var(--border-light);
+}
+.disc-side {
+  display: flex;
+  flex-direction: column;
+}
+.disc-lbl {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+.disc-val {
+  font-weight: 700;
+  color: var(--text-main);
+}
+.disc-arrow {
+  color: var(--text-muted);
+  font-weight: bold;
+}
+.disc-detail-msg {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}

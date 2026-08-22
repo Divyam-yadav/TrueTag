@@ -1,0 +1,162 @@
+/* True Tag - Created by Coding W/ night owls */
+
+.modal-backdrop-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 77, 122, 0.45);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 1.5rem;
+}
+.modal-doc-box {
+  background-color: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-card);
+  max-width: 720px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: var(--shadow-modal);
+  display: flex;
+  flex-direction: column;
+}
+.modal-header-top {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.modal-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.modal-heading-text {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--brand-navy);
+}
+.modal-subheading-text {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+.modal-x-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.25rem;
+  cursor: pointer;
+  color: var(--text-muted);
+}
+
+.legal-doc-sheet {
+  position: relative;
+  margin: 1.5rem;
+  padding: 2rem 1.75rem;
+  background-color: #ffffff;
+  border: 4px double var(--brand-navy);
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(10, 77, 122, 0.08);
+}
+.cert-center-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 1.25rem;
+  margin-bottom: 1.25rem;
+}
+.cert-center-logo {
+  width: 110px;
+  height: auto;
+  margin-bottom: 0.5rem;
+}
+.doc-gov-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--brand-navy);
+  letter-spacing: 0.04em;
+}
+.doc-act-text {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-bottom: 0.75rem;
+}
+
+.emerald-verified-seal {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background-color: var(--status-pass-bg);
+  color: var(--status-pass-text);
+  border: 1px solid var(--status-pass-border);
+  font-size: 0.8rem;
+  font-weight: 800;
+  padding: 0.35rem 1rem;
+  border-radius: 999px;
+  letter-spacing: 0.03em;
+}
+
+.doc-details-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  font-size: 0.85rem;
+  margin-bottom: 1.25rem;
+}
+.doc-row-item {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px dashed var(--border-light);
+  padding-bottom: 0.35rem;
+}
+.doc-label {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+.doc-val {
+  color: var(--text-main);
+  font-weight: 600;
+}
+.cert-serial-tag {
+  font-family: "JetBrains Mono", monospace;
+  color: var(--brand-navy);
+  font-weight: 700;
+}
+
+.signature-crypto-box {
+  background-color: #f8fafc;
+  border: 1px solid var(--border-light);
+  padding: 0.65rem 0.85rem;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.crypto-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--brand-navy);
+}
+.crypto-hash-code {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.675rem;
+  color: #475569;
+  word-break: break-all;
+}
+.embed-code-drawer {
+  padding: 1rem 1.5rem;
+  background-color: #f8fafc;
+  border-top: 1px solid var(--border-light);
+}
+.modal-actions-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--border-light);
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}

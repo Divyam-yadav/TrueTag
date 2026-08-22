@@ -1,0 +1,46 @@
+/* True Tag - Created by Coding W/ night owls */
+
+.action-panel-bar {
+  margin-top: 1rem;
+  background-color: #ffffff;
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-card);
+  padding: 1.25rem 1.75rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--shadow-card);
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.action-panel-info {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 0.875rem;
+  color: var(--text-main);
+}
+
+.action-info-emblem {
+  font-size: 1.25rem;
+}
+
+.action-info-text strong {
+  color: var(--brand-navy);
+}
+
+.btn-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

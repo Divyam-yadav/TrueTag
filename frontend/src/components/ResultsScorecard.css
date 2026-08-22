@@ -1,0 +1,141 @@
+/* True Tag - Created by Coding W/ night owls */
+
+.scorecard-flow-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.dark-status-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25rem;
+  padding: 1.75rem;
+  border-radius: var(--radius-card);
+  border: 1px solid;
+  box-shadow: var(--shadow-card);
+}
+.banner-passed {
+  background: linear-gradient(135deg, #ecfdf5 0%, #ffffff 100%);
+  border-color: var(--status-pass-border);
+}
+.banner-failed {
+  background: linear-gradient(135deg, #fef2f2 0%, #ffffff 100%);
+  border-color: var(--status-fail-border);
+}
+.status-icon-box {
+  font-size: 2.75rem;
+  flex-shrink: 0;
+}
+.status-heading {
+  font-size: 1.35rem;
+  font-weight: 800;
+  margin-bottom: 0.25rem;
+}
+.banner-passed .status-heading {
+  color: var(--status-pass-text);
+}
+.banner-failed .status-heading {
+  color: var(--status-fail-text);
+}
+.status-desc {
+  font-size: 0.875rem;
+  color: var(--text-main);
+  margin-bottom: 0.85rem;
+}
+.status-meta-row {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  flex-wrap: wrap;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--border-light);
+}
+.status-meta-row strong {
+  color: var(--brand-navy);
+}
+
+.scorecard-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-card);
+  padding: 1.75rem;
+  box-shadow: var(--shadow-card);
+}
+.scorecard-table-scroll {
+  overflow-x: auto;
+}
+.dark-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+.dark-data-table th {
+  text-align: left;
+  padding: 0.85rem 1rem;
+  background-color: #f8fafc;
+  color: var(--brand-navy);
+  font-weight: 700;
+  border-bottom: 1px solid var(--border-light);
+}
+.dark-data-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--border-light);
+  vertical-align: middle;
+}
+.rule-name-cell {
+  color: var(--text-main);
+  font-weight: 600;
+}
+.legal-code-tag code {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.75rem;
+  background-color: #f1f5f9;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  color: var(--brand-navy);
+  border: 1px solid var(--border-light);
+  font-weight: 600;
+}
+.extracted-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.extracted-val-text {
+  color: var(--status-pass-text);
+  font-weight: 600;
+}
+.source-badge {
+  font-size: 0.725rem;
+  color: var(--brand-navy);
+  background: var(--brand-cyan-light);
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  width: fit-content;
+}
+.missing-val-text {
+  color: var(--status-fail-text);
+  font-style: italic;
+  font-weight: 500;
+}
+
+.pill-badge {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 13px;
+  font-weight: 700;
+}
+.badge-passed {
+  background-color: var(--status-pass-bg);
+  color: var(--status-pass-text);
+  border: 1px solid var(--status-pass-border);
+}
+.badge-failed {
+  background-color: var(--status-fail-bg);
+  color: var(--status-fail-text);
+  border: 1px solid var(--status-fail-border);
+}

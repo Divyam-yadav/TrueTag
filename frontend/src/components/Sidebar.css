@@ -1,0 +1,107 @@
+/* True Tag - Created by Coding W/ night owls */
+
+.sidebar-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 1.15rem 1rem;
+  justify-content: space-between;
+  background-color: #ffffff;
+}
+
+.sidebar-brand-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border-light);
+  margin-bottom: 1rem;
+}
+
+.sidebar-logo-img {
+  width: 110px;
+  max-width: 120px;
+  height: auto;
+  margin-bottom: 0.25rem;
+  transition: transform 0.25s ease;
+}
+
+.sidebar-logo-img:hover {
+  transform: scale(1.04);
+}
+
+.sidebar-brand-title {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--brand-navy);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.sidebar-brand-subtitle {
+  font-size: 0.7rem;
+  color: var(--brand-cyan);
+  font-weight: 700;
+}
+
+.sidebar-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.sidebar-nav-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  border-radius: var(--radius-sm);
+  background-color: transparent;
+  color: var(--text-muted);
+  border: 1px solid transparent;
+  border-left: 3px solid transparent;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  text-align: left;
+}
+
+.sidebar-nav-btn:hover {
+  background-color: #f8fafc;
+  color: var(--brand-navy);
+}
+
+.sidebar-nav-btn.active-nav-item {
+  background-color: var(--brand-cyan-light);
+  color: var(--brand-navy);
+  border-left: 4px solid var(--brand-cyan);
+  font-weight: 700;
+}
+
+.nav-icon {
+  font-size: 1.05rem;
+}
+
+.sidebar-footer-box {
+  padding-top: 1rem;
+  border-top: 1px solid var(--border-light);
+  text-align: center;
+}
+
+.sidebar-credit-label {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.2rem;
+}
+
+.sidebar-credit-team {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--brand-navy);
+}

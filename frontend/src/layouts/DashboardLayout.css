@@ -1,0 +1,89 @@
+/* True Tag - Created by Coding W/ night owls */
+
+.dashboard-layout-grid {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+  background-color: var(--bg-body);
+}
+
+.dashboard-sidebar-panel {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  border-right: 1px solid var(--border-light);
+  background-color: #ffffff;
+  z-index: 40;
+}
+
+.dashboard-main-content {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow-y: auto;
+  padding: 2rem 2.5rem 6rem 2.5rem;
+}
+
+.dashboard-top-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border-light);
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.header-title-box h1 {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--brand-navy);
+  letter-spacing: -0.02em;
+}
+
+.header-title-box p {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.header-badges-row {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.status-pill-tag {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  background: var(--brand-cyan-light);
+  color: var(--brand-navy);
+  border: 1px solid #bae6fd;
+}
+
+.team-pill-tag {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  background: #f1f5f9;
+  color: var(--text-muted);
+  border: 1px solid var(--border-light);
+}
+
+@media (max-width: 900px) {
+  .dashboard-layout-grid {
+    grid-template-columns: 1fr;
+  }
+  .dashboard-sidebar-panel {
+    position: relative;
+    height: auto;
+  }
+  .dashboard-main-content {
+    padding: 1.5rem 1rem 6rem 1rem;
+    height: auto;
+  }
+}
