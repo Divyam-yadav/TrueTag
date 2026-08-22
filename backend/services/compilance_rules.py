@@ -2,16 +2,35 @@ import re
 
 
 def extract_price_value(text: str) -> tuple:
-
-    mrp_regex = r'(?:mrp|m\.r\.p|max(?:imum)?\s+retail\s+price)[^0-9\n\r]{0,15}(?:rs\.?|ps\.?|inr|₹)?\s*([0-9]{1,6}(?:[,\.][0-9]{2})?)'
-    match = re.search(mrp_regex, text, re.IGNORECASE)
+    mrp_regex_1 = r'(?:mrp|m\.r\.p|max(?:imum)?\s+retail\s+price)[^0-9\n\r]{0,20}(?:rs\.?|ps\.?|inr|₹)?\s*([0-9]+(?:[,\.][0-9]{1,2})?)\s*(?:\/[-=]|per|\n|\r|$)'
+    match = re.search(mrp_regex_1, text, re.IGNORECASE)
     if match:
         raw_val = match.group(1).replace(',', '.')
         try:
             val = float(raw_val)
-            return True, val, match.group(0).strip()
+            return True, val, f"₹{val:.2f}"
         except ValueError:
-            pass    
+            pass
+
+    mrp_regex_multiline = r'(?:mrp|m\.r\.p|maximum\s+retail\s+price)[\s\S]{0,30}?(?:rs\.?|inr|₹)\s*([0-9]+(?:[,\.][0-9]{1,2})?)'
+    match = re.search(mrp_regex_multiline, text, re.IGNORECASE)
+    if match:
+        raw_val = match.group(1).replace(',', '.')
+        try:
+            val = float(raw_val)
+            return True, val, f"₹{val:.2f}"
+        except ValueError:
+            pass
+
+    mrp_regex_tax = r'(?:rs\.?|inr|₹)\s*([0-9]+(?:[,\.][0-9]{1,2})?)[\s\S]{0,30}?(?:incl|taxes|all\s+taxes)'
+    match = re.search(mrp_regex_tax, text, re.IGNORECASE)
+    if match:
+        raw_val = match.group(1).replace(',', '.')
+        try:
+            val = float(raw_val)
+            return True, val, f"₹{val:.2f}"
+        except ValueError:
+            pass
 
     keywords = ["mrp", "m.r.p", "maximum retail price", "max retail price", "incl of all taxes", "incl. of all taxes", "inclusive of all taxes"]
     found = any(k in text.lower() for k in keywords)
@@ -19,7 +38,6 @@ def extract_price_value(text: str) -> tuple:
 
 
 def extract_net_quantity(text: str) -> tuple:
-
     qty_regex = r'(?:net\s*quantit[y|i]|net\s*qt[y|i]|net\s*weight|net\s*wt|net\s*content|net\s*volume)[^0-9\n\r]{0,10}([0-9]+(?:\.[0-9]+)?\s*(?:g|kg|ml|l|ltr|gm|gms|units?|pcs|pieces|oz|[0-9]))'
     match = re.search(qty_regex, text, re.IGNORECASE)
     if match:
@@ -74,7 +92,6 @@ def extract_customer_care_info(text: str) -> tuple:
 
 
 def aggregate_multi_image_compliance(image_scan_results: list) -> dict:
-
     rules_master = {
         "mrp": {
             "name": "Maximum Retail Price (MRP)",
@@ -167,89 +184,4 @@ def aggregate_multi_image_compliance(image_scan_results: list) -> dict:
         "passed_rules_count": passed_count,
         "total_rules": 5,
         "all_rules_passed": all_passed
-    }
-
-
-def perform_cross_verification(declared_mrp: float, declared_net_qty: str, aggregated_rules: dict) -> dict:
-    mrp_rule = aggregated_rules["rules"]["mrp"]
-    qty_rule = aggregated_rules["rules"]["net_quantity"]
-
-    discrepancies = []
-    has_critical_violation = False
-
-    mrp_status = "Not Extracted"
-    physical_mrp = mrp_rule.get("numeric_mrp")
-
-    if physical_mrp is not None and declared_mrp is not None:
-        if declared_mrp > physical_mrp:
-            mrp_status = "Overpriced"
-            has_critical_violation = True
-            discrepancies.append({
-                "field": "Maximum Retail Price (MRP)",
-                "declared": f"₹{declared_mrp:.2f}",
-                "packaging": f"₹{physical_mrp:.2f}",
-                "severity": "Critical",
-                "message": f"Illegal Overpricing: Seller listing price (₹{declared_mrp:.2f}) exceeds physical packaging MRP (₹{physical_mrp:.2f}). Violation of Section 18 / Rule 18(2)."
-            })
-        elif declared_mrp < physical_mrp:
-            mrp_status = "Discounted"
-            discrepancies.append({
-                "field": "Maximum Retail Price (MRP)",
-                "declared": f"₹{declared_mrp:.2f}",
-                "packaging": f"₹{physical_mrp:.2f}",
-                "severity": "Match",
-                "message": f"Compliant: Listing price (₹{declared_mrp:.2f}) is discounted below packaging MRP (₹{physical_mrp:.2f})."
-            })
-        else:
-            mrp_status = "Exact Match"
-            discrepancies.append({
-                "field": "Maximum Retail Price (MRP)",
-                "declared": f"₹{declared_mrp:.2f}",
-                "packaging": f"₹{physical_mrp:.2f}",
-                "severity": "Match",
-                "message": f"Exact Match: Listing price (₹{declared_mrp:.2f}) matches packaging MRP."
-            })
-    else:
-        discrepancies.append({
-            "field": "Maximum Retail Price (MRP)",
-            "declared": f"₹{declared_mrp:.2f}" if declared_mrp else "Not Declared",
-            "packaging": mrp_rule.get("extracted_value") or "Missing on Label",
-            "severity": "Warning" if not physical_mrp else "Match",
-            "message": "Numeric price could not be automatically parsed from packaging label."
-        })
-
-    qty_status = "Match"
-    packaging_qty = qty_rule.get("extracted_value")
-    if declared_net_qty and packaging_qty:
-        norm_declared = re.sub(r'\s+', '', declared_net_qty.lower())
-        norm_packaging = re.sub(r'\s+', '', packaging_qty.lower())
-        if norm_declared in norm_packaging or norm_packaging in norm_declared:
-            qty_status = "Match"
-            discrepancies.append({
-                "field": "Net Quantity",
-                "declared": declared_net_qty,
-                "packaging": packaging_qty,
-                "severity": "Match",
-                "message": f"Consistent: Declared quantity matches packaging label."
-            })
-        else:
-            qty_status = "Mismatch"
-            discrepancies.append({
-                "field": "Net Quantity",
-                "declared": declared_net_qty,
-                "packaging": packaging_qty,
-                "severity": "Warning",
-                "message": f"Quantity Discrepancy: Declared '{declared_net_qty}' differs from physical label '{packaging_qty}'."
-            })
-
-    is_compliant = aggregated_rules["all_rules_passed"] and not has_critical_violation
-    compliance_status = "COMPLIANT" if is_compliant else "REJECTED_NON_COMPLIANT"
-
-    return {
-        "compliance_status": compliance_status,
-        "is_compliant": is_compliant,
-        "has_critical_violation": has_critical_violation,
-        "discrepancies": discrepancies,
-        "mrp_cross_status": mrp_status,
-        "qty_cross_status": qty_status
     }
