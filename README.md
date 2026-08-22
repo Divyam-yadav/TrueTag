@@ -70,3 +70,18 @@ Frontend dashboard runs at: `http://localhost:5173`
 ### 3. Database (MongoDB)
 Ensure local MongoDB is running on port `27017` (`mongodb://localhost:27017`).
 *(Note: If MongoDB is not active, the backend automatically uses an in-memory fallback so your hackathon presentation never crashes!)*
+
+---
+
+###🦉 Team: Coding W/ Night Owls
+* Gulshan Matre (Team Leader)
+
+* John Mathew
+
+* Himesh Manral
+
+* Divyam Yadav
+
+**Developed with ☕ and 🍕 during SquidHack 2026.**
+
+---
