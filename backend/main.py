@@ -3,10 +3,10 @@ from datetime import datetime
 from typing import List
 from fastapi import FastAPI, File, UploadFile, Form, HTTPException, Response
 from fastapi.middleware.cors import CORSMiddleware
-# from database import save_compliance_audit, get_compliance_audit_by_id, get_all_audits, get_database
+from database import save_compliance_audit, get_compliance_audit_by_id, get_all_audits, get_database
 from image_pipeline import extract_ocr_from_image_bytes
 from compliance_engine  import aggregate_multi_image_compliance, perform_cross_verification
-# from certificate_generator import generate_certificate_data, generate_certificate_pdf
+from certificate_generator import generate_certificate_data, generate_certificate_pdf
 
 app = FastAPI(
     title =  "True Tag - Scan_Detect_Verify "
@@ -23,12 +23,10 @@ app.add_middleware(
 )
 
 
-# @app.on_event("startup")
-# def startup_db():
-#     """
-#     Connect to MongoDB when FastAPI server launches.
-#     """
-#     get_database()
+@app.on_event("startup")
+def startup_db():
+
+    get_database()
 
 
 @app.get("/")
@@ -36,7 +34,7 @@ def health_check():
     return {
         "status" : "ready to use"
     }
-@app.post("/api/products/analyze")
+@app.post("/products/analyze")
 async def analyze_product(
     product_name: str = Form(...),
     category: str = Form("Packaged Food & Beverages"),
@@ -52,7 +50,6 @@ async def analyze_product(
     if len(files) > 5:
         raise HTTPException(status_code=400, detail="Maximum 5 packaging images allowed per product audit.")
 
-    # 1. Process each uploaded image with OpenCV & OCR
     image_scan_results = []
     for file in files:
         if not file.content_type.startswith("image/"):
@@ -129,7 +126,7 @@ def get_certificate(scan_id: str):
     return audit["certificate"]
 
 
-@app.get("/api/products/{scan_id}/certificate/download")
+@app.get("/products/{scan_id}/certificate/download")
 def download_certificate_pdf(scan_id: str):
 
     audit = get_compliance_audit_by_id(scan_id)
@@ -147,7 +144,7 @@ def download_certificate_pdf(scan_id: str):
     )
 
 
-@app.get("/api/products/{scan_id}/price-history")
+@app.get("/products/{scan_id}/price-history")
 def get_price_history(scan_id: str):
 
     audit = get_compliance_audit_by_id(scan_id)
@@ -163,7 +160,7 @@ def get_price_history(scan_id: str):
     }
 
 
-@app.get("/api/products/audits")
+@app.get("/products/audits")
 def get_audits_list(limit: int = 20):
 
     records = get_all_audits(limit=limit)
